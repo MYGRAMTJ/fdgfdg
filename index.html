@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление жестами рук - Hand Gesture Control</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">✋ Hand Control</h1>
+                <div class="status">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <span class="status-text" id="statusText">Инициализация...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-container">
+                    <video id="video" autoplay playsinline muted></video>
+                    <canvas id="canvas"></canvas>
+                    <div class="gesture-display" id="gestureDisplay">
+                        <div class="gesture-text">Распознаны жесты</div>
+                        <div class="gesture-icons" id="gestureIcons"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <!-- Instructions -->
+                <div class="instructions">
+                    <h2>📖 Инструкции управления</h2>
+                    <div class="instruction-grid">
+                        <div class="instruction-item">
+                            <div class="instruction-icon">👆</div>
+                            <p><strong>Указатель вверх:</strong> Открытая ладонь</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">👊</div>
+                            <p><strong>Клик:</strong> Сжатый кулак</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">🤟</div>
+                            <p><strong>Дополнительный жест:</strong> Знак V (победа)</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">☝️</div>
+                            <p><strong>Указание:</strong> Один палец вверх</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gesture Detection Status -->
+                <div class="detection-status">
+                    <h2>🎯 Статус обнаружения</h2>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Видимые руки:</span>
+                            <span class="stat-value" id="handsCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Уверенность детекции:</span>
+                            <span class="stat-value" id="confidence">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Текущий жест:</span>
+                            <span class="stat-value" id="currentGesture">Нет</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Позиция курсора:</span>
+                            <span class="stat-value" id="cursorPos">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Virtual Cursor -->
+                <div class="virtual-cursor" id="virtualCursor">
+                    <div class="cursor-inner"></div>
+                    <div class="cursor-outer"></div>
+                </div>
+
+                <!-- Click Feedback -->
+                <div class="click-feedback" id="clickFeedback">💥</div>
+
+                <!-- Control Buttons -->
+                <div class="control-buttons">
+                    <button id="startBtn" class="btn btn-primary">▶️ Запустить</button>
+                    <button id="stopBtn" class="btn btn-secondary" disabled>⏹️ Остановить</button>
+                    <button id="resetBtn" class="btn btn-tertiary">🔄 Сброс</button>
+                </div>
+
+                <!-- Settings -->
+                <div class="settings">
+                    <h3>⚙️ Параметры</h3>
+                    <div class="setting-item">
+                        <label for="confidenceSlider">Уверенность обнаружения:</label>
+                        <input type="range" id="confidenceSlider" min="0.1" max="0.99" step="0.1" value="0.5">
+                        <span class="slider-value" id="confidenceValue">50%</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="smoothing">Сглаживание:</label>
+                        <input type="range" id="smoothing" min="0" max="1" step="0.1" value="0.6">
+                        <span class="slider-value" id="smoothingValue">60%</span>
+                    </div>
+                    <div class="setting-item checkbox">
+                        <input type="checkbox" id="mirrorVideo" checked>
+                        <label for="mirrorVideo">Зеркальное отображение видео</label>
+                    </div>
+                    <div class="setting-item checkbox">
+                        <input type="checkbox" id="showSkeleton" checked>
+                        <label for="showSkeleton">Показывать скелет руки</label>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🚀 Hand Gesture Control | Powered by MediaPipe | © 2026</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script async src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
